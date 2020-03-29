@@ -1,28 +1,22 @@
 #include <RelayData.h>
 
-#define DEBUG true
-
 void writeData (DynamicJsonDocument doc) {
-    SPIFFS.remove("/config.json");
+    SPIFFS.remove(dataFile);
     
-    File configFile = SPIFFS.open("/config.json", "w");
+    File configFile = SPIFFS.open(dataFile, "w");
 
     if (configFile) {
         serializeJson(doc, configFile);
         configFile.close();
     }
-
-    if (DEBUG) {
-        serializeJsonPretty(doc, Serial);
-    }
 }
 
 DynamicJsonDocument fetchData () {
     if (SPIFFS.begin()) {
-        if (SPIFFS.exists("/config.json")) {
-            File configFile = SPIFFS.open("/config.json", "r");
+        if (SPIFFS.exists(dataFile)) {
+            File configFile = SPIFFS.open(dataFile, "r");
 
-            DynamicJsonDocument doc(1024);
+            DynamicJsonDocument doc(JSON_SIZE);
 
             if (configFile) {
 
@@ -32,9 +26,8 @@ DynamicJsonDocument fetchData () {
                     Serial.println(error.c_str());
                     configFile.close();
                 }
-                else {    
-                    return doc;
-                }
+
+                return doc;
             }
         }
     }
