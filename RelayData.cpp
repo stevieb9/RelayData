@@ -1,3 +1,5 @@
+#include <RelayData.h>
+
 #define DEBUG true
 
 void writeData (DynamicJsonDocument doc) {
