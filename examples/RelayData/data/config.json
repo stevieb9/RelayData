@@ -1,0 +1,1 @@
+{"mqtt_pw":"","mqtt_id":"","mqtt_un":"","relays":[{"mode":0,"temp":78,"reverse":0},{"mode":1,"temp":78,"reverse":0},{"mode":0,"humidity":55,"reverse":0},{"reverse":0,"humidity":55,"mode":1},{"reverse":0,"ontime":0,"offtime":0},{"reverse":0}]}
