@@ -1,17 +1,15 @@
 #include <RelayData.h>
 
-void writeData (DynamicJsonDocument doc) {
-    SPIFFS.remove(dataFile);
-    
-    File configFile = SPIFFS.open(dataFile, "w");
+//template <typename T>
+//T setRelay (uint8_t relayType, T& relay) {
 
-    if (configFile) {
-        serializeJson(doc, configFile);
-        configFile.close();
-    }
+void setRelay (uint8_t relayType) {
+    DynamicJsonDocument doc = fetchData();
+    serializeJsonPretty(doc["relays"][relayType], Serial);
 }
 
 DynamicJsonDocument fetchData () {
+
     if (SPIFFS.begin()) {
         if (SPIFFS.exists(dataFile)) {
             File configFile = SPIFFS.open(dataFile, "r");
@@ -32,3 +30,15 @@ DynamicJsonDocument fetchData () {
         }
     }
 }
+
+void writeData (DynamicJsonDocument doc) {
+    SPIFFS.remove(dataFile);
+
+    File configFile = SPIFFS.open(dataFile, "w");
+
+    if (configFile) {
+        serializeJson(doc, configFile);
+        configFile.close();
+    }
+}
+
