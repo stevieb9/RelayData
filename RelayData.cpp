@@ -1,8 +1,5 @@
 #include <RelayData.h>
 
-//template <typename T>
-//T setRelay (uint8_t relayType, T& relay) {
-
 void setRelay (uint8_t relayType) {
     DynamicJsonDocument doc = fetchData();
     serializeJsonPretty(doc["relays"][relayType], Serial);
@@ -25,8 +22,8 @@ DynamicJsonDocument fetchData () {
                     configFile.close();
                 }
 
-                return doc;
             }
+            return doc;
         }
     }
 }
